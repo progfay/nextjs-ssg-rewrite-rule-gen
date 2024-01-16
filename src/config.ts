@@ -150,7 +150,7 @@ export const loadConfig = async (
 		nginxConfigs: rawConfig.nginxConfigs ?? [],
 		// `basePath` config is `""` by default.
 		// ref. https://github.com/vercel/next.js/blob/127c5bbf80d44e256533db028d7a595a1c3defe0/packages/next/src/server/config-shared.ts#L675
-		basePath: "",
+		basePath: rawConfig.basePath ?? "",
 		// `trailingSlash` config is `false` by default.
 		// ref. https://github.com/vercel/next.js/blob/127c5bbf80d44e256533db028d7a595a1c3defe0/packages/next/src/server/config-shared.ts#L677
 		trailingSlash: rawConfig.trailingSlash ?? false,
