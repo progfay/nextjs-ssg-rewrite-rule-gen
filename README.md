@@ -34,7 +34,7 @@ You can run this application with config in following command: `nextjs-ssg-rewri
   "nginxConfigs": [
     {
       "pattern": "^/credential$",
-      "directives": ["add_header Cache-Control \"no-store\";"],
+      "directives": ["add_header Cache-Control \"no-store\";"]
     }
   ],
 	"basePath": "/app",
