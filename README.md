@@ -31,6 +31,12 @@ You can run this application with config in following command: `nextjs-ssg-rewri
 {
 	"pagesDirPath": "apps/src/pages",
 	"ignoreRoutes": ["/debug"],
+  "nginxConfigs": [
+    {
+      "pattern": "^/credential$",
+      "directives": ["add_header Cache-Control \"no-store\";"],
+    }
+  ],
 	"basePath": "/app",
 	"trailingSlash": true
 }
@@ -39,6 +45,9 @@ You can run this application with config in following command: `nextjs-ssg-rewri
 Available configs:
 - `pagesDirPath`: customize path for `pages` directory
 - `ignoreRoutes`: exclude specific paths from outputs
+- `nginxConfigs`: customize configuration inside of [nginx `location` directive](https://nginx.org/en/docs/http/ngx_http_core_module.html#location)
+  - `pattern`: pattern string of [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/RegExp#pattern)
+  - `directives`: additional nginx directives
 - `basePath`: [next.config.js Options: basePath | Next.js](https://nextjs.org/docs/app/api-reference/next-config-js/basePath)
 - `trailingSlash`: [next.config.js Options: trailingSlash | Next.js](https://nextjs.org/docs/app/api-reference/next-config-js/trailingSlash)
 
