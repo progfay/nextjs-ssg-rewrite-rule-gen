@@ -15,7 +15,7 @@
 		"prepare": "npm run build",
 		"prebuild": "rm -rf dist",
 		"build": "tsc -p tsconfig.json",
-		"generate": "ts-node -P tsconfig.json index.ts",
+		"generate": "./bin/nextjs-ssg-rewrite-rule-gen.js",
 		"test": "jest --config jest.config.js",
 		"lint": "biome check src",
 		"format": "biome check --apply src"
