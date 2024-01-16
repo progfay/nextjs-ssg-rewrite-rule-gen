@@ -4,8 +4,7 @@
  * and {@link https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#optional-catch-all-segments | Optional Catch-all Segments}
  */
 
-import { Config } from "./config";
-import { trimPrefix } from "./utils";
+import type { Config } from "./config";
 
 declare const routeSymbol: unique symbol;
 /**
@@ -55,6 +54,9 @@ export const sortRoutesByRoutingPriorityOrder = (routes: Route[]): Route[] =>
 		// the shorter the path, the higher the priority.
 		return file1.length - file2.length;
 	});
+
+const trimPrefix = (target: string, prefix: string) =>
+	target.startsWith(prefix) ? target.slice(prefix.length) : target;
 
 /**
  * @param pageFilePath path for file under the `pages` directory

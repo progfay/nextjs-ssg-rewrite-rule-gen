@@ -1,5 +1,3 @@
-import { Config } from "./config";
-
 /**
  * @description generate {@link https://www.nginx.com/blog/creating-nginx-rewrite-rules/ | nginx rewrite rule}
  * for page files (`.html` files)
