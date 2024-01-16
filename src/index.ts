@@ -50,7 +50,16 @@ const main = async () => {
 			route,
 			trailingSlash: config.trailingSlash,
 		});
-		return generateNginxRewriteRule({ pattern, filePath });
+
+		const additionalDirectives = config.nginxConfigs
+			.filter((nginxConfig) => new RegExp(nginxConfig.pattern).test(route))
+			.flatMap((nginxConfig) => nginxConfig.directives);
+
+		return generateNginxRewriteRule({
+			pattern,
+			filePath,
+			additionalDirectives,
+		});
 	});
 
 	const directives = [

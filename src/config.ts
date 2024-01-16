@@ -1,14 +1,46 @@
 import { lstat, readFile } from "node:fs/promises";
 import path from "node:path";
 
+interface NginxConfig {
+	readonly pattern: string;
+	readonly directives: string[];
+}
+
 export interface Config {
 	readonly pagesDirPath: string;
 	readonly ignoredRoutes: readonly string[];
+	readonly nginxConfigs: NginxConfig[];
 	readonly basePath: string;
 	readonly trailingSlash: boolean;
 }
 
 type RawConfig = Partial<Config>;
+
+function assertNginxConfig(obj: unknown): asserts obj is NginxConfig {
+	if (typeof obj !== "object" || obj === null) {
+		throw new Error("nginx config must be JSON");
+	}
+
+	if (!("pattern" in obj) || typeof obj.pattern !== "string") {
+		throw new Error('nginx config must have string field "pattern"');
+	}
+
+	try {
+		new RegExp(obj.pattern);
+	} catch (e) {
+		if (e instanceof SyntaxError) {
+			throw new Error(`invalid RegExp pattern: ${JSON.stringify(obj.pattern)}`);
+		}
+	}
+
+	if (
+		!("directives" in obj) ||
+		!Array.isArray(obj.directives) ||
+		obj.directives.some((d) => typeof d !== "string")
+	) {
+		throw new Error('nginx config must have string array field "directives"');
+	}
+}
 
 function assertRawConfig(obj: unknown): asserts obj is RawConfig {
 	if (typeof obj !== "object" || obj === null) {
@@ -27,6 +59,16 @@ function assertRawConfig(obj: unknown): asserts obj is RawConfig {
 			obj.ignoredRoutes.some((route) => typeof route !== "string")
 		) {
 			throw new Error('config must have string array field "ignoredRoutes"');
+		}
+	}
+
+	if ("nginxConfigs" in obj) {
+		if (!Array.isArray(obj.nginxConfigs)) {
+			throw new Error('config must have array field "nginxConfigs"');
+		}
+
+		for (const nginxConfig of obj.nginxConfigs) {
+			assertNginxConfig(nginxConfig);
 		}
 	}
 
@@ -103,6 +145,7 @@ export const loadConfig = async (
 			configDir: configFilePath ? path.dirname(configFilePath) : undefined,
 		}),
 		ignoredRoutes: rawConfig.ignoredRoutes ?? [],
+		nginxConfigs: rawConfig.nginxConfigs ?? [],
 		// `basePath` config is `""` by default.
 		// ref. https://github.com/vercel/next.js/blob/127c5bbf80d44e256533db028d7a595a1c3defe0/packages/next/src/server/config-shared.ts#L675
 		basePath: "",
