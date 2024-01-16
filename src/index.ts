@@ -55,7 +55,11 @@ const main = async () => {
 			.filter((nginxConfig) => new RegExp(nginxConfig.pattern).test(route))
 			.flatMap((nginxConfig) => nginxConfig.directives);
 
-		return generateNginxRewriteRule({ pattern, filePath, additionalDirectives });
+		return generateNginxRewriteRule({
+			pattern,
+			filePath,
+			additionalDirectives,
+		});
 	});
 
 	const directives = [

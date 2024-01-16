@@ -14,7 +14,11 @@ export const generateNginxRewriteRule = ({
 	readonly additionalDirectives: string[];
 }) =>
 	`
-location ~ ${pattern} {${additionalDirectives.length > 0 ? `\n  ${additionalDirectives.join('\n  ')}` : ''}
+location ~ ${pattern} {${
+		additionalDirectives.length > 0
+			? `\n  ${additionalDirectives.join("\n  ")}`
+			: ""
+	}
   rewrite ${pattern} ${filePath} break;
 }
 `.trim();

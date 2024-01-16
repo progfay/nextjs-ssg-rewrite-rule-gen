@@ -21,7 +21,7 @@ function assertNginxConfig(obj: unknown): asserts obj is NginxConfig {
 		throw new Error("nginx config must be JSON");
 	}
 
-	if (!("pattern" in obj) || typeof obj.pattern !== 'string') {
+	if (!("pattern" in obj) || typeof obj.pattern !== "string") {
 		throw new Error('nginx config must have string field "pattern"');
 	}
 
@@ -30,10 +30,14 @@ function assertNginxConfig(obj: unknown): asserts obj is NginxConfig {
 	} catch (e) {
 		if (e instanceof SyntaxError) {
 			throw new Error(`invalid RegExp pattern: ${JSON.stringify(obj.pattern)}`);
-		};
+		}
 	}
 
-	if (!("directives" in obj) || !Array.isArray(obj.directives) || obj.directives.some(d => typeof d !== 'string')) {
+	if (
+		!("directives" in obj) ||
+		!Array.isArray(obj.directives) ||
+		obj.directives.some((d) => typeof d !== "string")
+	) {
 		throw new Error('nginx config must have string array field "directives"');
 	}
 }
@@ -59,9 +63,7 @@ function assertRawConfig(obj: unknown): asserts obj is RawConfig {
 	}
 
 	if ("nginxConfigs" in obj) {
-		if (
-			!Array.isArray(obj.nginxConfigs)
-		) {
+		if (!Array.isArray(obj.nginxConfigs)) {
 			throw new Error('config must have array field "ignoredRoutes"');
 		}
 
