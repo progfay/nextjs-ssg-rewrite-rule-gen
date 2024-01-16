@@ -10,7 +10,6 @@ import {
 	sortRoutesByRoutingPriorityOrder,
 } from "./nextjs";
 import {
-	generateFallbackNginxRewriteRule,
 	generateNginxRewriteRule,
 } from "./nginx";
 
@@ -41,7 +40,7 @@ const main = async () => {
 
 	const orderedRoutes = sortRoutesByRoutingPriorityOrder(filteredRoutes);
 
-	const pageDirectives = orderedRoutes.map((route) => {
+	const rewriteRules = orderedRoutes.map((route) => {
 		const pattern = generateNextjsPathPattern({
 			route,
 			basePath: config.basePath,
@@ -62,13 +61,8 @@ const main = async () => {
 		});
 	});
 
-	const directives = [
-		...pageDirectives,
-		generateFallbackNginxRewriteRule(config.basePath),
-	];
-
 	// eslint-disable-next-line no-console
-	console.log(directives.join("\n\n"));
+	console.log(rewriteRules.join("\n\n"));
 };
 
 main();
