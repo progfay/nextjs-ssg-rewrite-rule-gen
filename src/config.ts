@@ -34,7 +34,7 @@ function assertRawConfig(obj: unknown): asserts obj is RawConfig {
 		if (typeof obj.basePath !== "string") {
 			throw new Error('"basePath" config must be string');
 		}
-		if (obj.basePath.startsWith("/")) {
+		if (!obj.basePath.startsWith("/")) {
 			throw new Error('"basePath" config must be start with "/"');
 		}
 	}
