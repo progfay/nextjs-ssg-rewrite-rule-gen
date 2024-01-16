@@ -64,7 +64,7 @@ function assertRawConfig(obj: unknown): asserts obj is RawConfig {
 
 	if ("nginxConfigs" in obj) {
 		if (!Array.isArray(obj.nginxConfigs)) {
-			throw new Error('config must have array field "ignoredRoutes"');
+			throw new Error('config must have array field "nginxConfigs"');
 		}
 
 		for (const nginxConfig of obj.nginxConfigs) {
