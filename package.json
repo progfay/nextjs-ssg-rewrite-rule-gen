@@ -6,7 +6,11 @@
 	"bin": {
 		"nextjs-ssg-rewrite-rule-gen": "bin/nextjs-ssg-rewrite-rule-gen.js"
 	},
-	"files": ["bin", "dist", "package.json"],
+	"files": [
+		"bin",
+		"dist",
+		"package.json"
+	],
 	"scripts": {
 		"prepare": "npm run build",
 		"prebuild": "rm -rf dist",
@@ -31,7 +35,6 @@
 		"typescript": "5.3.3"
 	},
 	"dependencies": {
-		"assert-never": "1.2.1",
 		"glob": "10.3.10"
 	},
 	"publishConfig": {
