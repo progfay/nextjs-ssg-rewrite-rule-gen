@@ -9,9 +9,7 @@ import {
 	rejectUnnecessaryRoutes,
 	sortRoutesByRoutingPriorityOrder,
 } from "./nextjs";
-import {
-	generateNginxRewriteRule,
-} from "./nginx";
+import { generateNginxRewriteRule } from "./nginx";
 
 const main = async () => {
 	const {
