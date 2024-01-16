@@ -18,18 +18,20 @@ type RawConfig = Partial<Config>;
 
 function assertNginxConfig(obj: unknown): asserts obj is NginxConfig {
 	if (typeof obj !== "object" || obj === null) {
-		throw new Error("nginx config must be JSON");
+		throw new TypeError("nginxConfig must be JSON Object");
 	}
 
 	if (!("pattern" in obj) || typeof obj.pattern !== "string") {
-		throw new Error('nginx config must have string field "pattern"');
+		throw new TypeError('nginxConfig property "pattern" must be string');
 	}
 
 	try {
 		new RegExp(obj.pattern);
 	} catch (e) {
 		if (e instanceof SyntaxError) {
-			throw new Error(`invalid RegExp pattern: ${JSON.stringify(obj.pattern)}`);
+			const error = new SyntaxError(`invalid RegExp pattern: ${JSON.stringify(obj.pattern)}`);
+			error.cause = e
+			throw error
 		}
 	}
 
@@ -38,18 +40,18 @@ function assertNginxConfig(obj: unknown): asserts obj is NginxConfig {
 		!Array.isArray(obj.directives) ||
 		obj.directives.some((d) => typeof d !== "string")
 	) {
-		throw new Error('nginx config must have string array field "directives"');
+		throw new TypeError('nginxConfig property "directives" must be string array');
 	}
 }
 
 function assertRawConfig(obj: unknown): asserts obj is RawConfig {
 	if (typeof obj !== "object" || obj === null) {
-		throw new Error("config must be JSON");
+		throw new TypeError("config must be JSON Object");
 	}
 
 	if ("pagesDirPath" in obj) {
 		if (typeof obj.pagesDirPath !== "string") {
-			throw new Error('config must have string field "pagesDirPath"');
+			throw new TypeError('config property "pagesDirPath" must be string');
 		}
 	}
 
@@ -58,13 +60,13 @@ function assertRawConfig(obj: unknown): asserts obj is RawConfig {
 			!Array.isArray(obj.ignoredRoutes) ||
 			obj.ignoredRoutes.some((route) => typeof route !== "string")
 		) {
-			throw new Error('config must have string array field "ignoredRoutes"');
+			throw new TypeError('config property "ignoredRoutes" must be string array');
 		}
 	}
 
 	if ("nginxConfigs" in obj) {
 		if (!Array.isArray(obj.nginxConfigs)) {
-			throw new Error('config must have array field "nginxConfigs"');
+			throw new TypeError('config property "nginxConfigs" must be array');
 		}
 
 		for (const nginxConfig of obj.nginxConfigs) {
@@ -74,16 +76,16 @@ function assertRawConfig(obj: unknown): asserts obj is RawConfig {
 
 	if ("basePath" in obj) {
 		if (typeof obj.basePath !== "string") {
-			throw new Error('"basePath" config must be string');
+			throw new TypeError('config property "basePath" must be string');
 		}
 		if (!obj.basePath.startsWith("/")) {
-			throw new Error('"basePath" config must be start with "/"');
+			throw new TypeError('config property "basePath" must be start with "/"');
 		}
 	}
 
 	if ("trailingSlash" in obj) {
 		if (typeof obj.trailingSlash !== "boolean") {
-			throw new Error('"trailingSlash" config must be boolean');
+			throw new TypeError('config property "trailingSlash" must be boolean');
 		}
 	}
 }
