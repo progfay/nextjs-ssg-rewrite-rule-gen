@@ -91,7 +91,17 @@ export const rejectUnnecessaryRoutes = (
 	routes
 		.filter((route) => !isApiRoutePath(route))
 		.filter((route) => !COMMON_IGNORED_ROUTES.includes(route))
-		.filter((route) => !ignoredRoutes.includes(route));
+		.filter((route) => !ignoredRoutes.includes(route))
+		.filter((route) => {
+			// Catch-all Segments are not supported.
+			const CATCH_ALL_SEGMENTS_REGEXP: RegExp = /\[\.\.\.[^/]+?\]/g
+			return !CATCH_ALL_SEGMENTS_REGEXP.test(route)
+		})
+		.filter((route) => {
+			// Optional Catch-all Segments are not supported.
+			const OPTIONAL_CATCH_ALL_SEGMENTS_REGEXP: RegExp = /\[\[\.\.\.[^/]+?\]\]/g
+			return !OPTIONAL_CATCH_ALL_SEGMENTS_REGEXP.test(route)
+		});
 
 /**
  * @description generate regular expression string which matches to `pathname`
