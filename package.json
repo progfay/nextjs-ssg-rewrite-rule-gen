@@ -34,7 +34,7 @@
 		"typescript": "5.5.2"
 	},
 	"dependencies": {
-		"glob": "10.4.2"
+		"glob": "10.4.5"
 	},
 	"publishConfig": {
 		"access": "public"
