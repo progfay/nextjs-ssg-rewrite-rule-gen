@@ -101,7 +101,7 @@ const stat = (p: string) =>
 		.then((stat) => ({ ok: true, stat }) as const)
 		.catch((error) => ({ ok: false, error }) as const);
 
-export const resolvePagesDirPath = async ({
+const resolvePagesDirPath = async ({
 	pagesDirPath,
 	configDir,
 }: {

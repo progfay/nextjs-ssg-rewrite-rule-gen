@@ -1,7 +1,6 @@
 import path from "node:path";
-import { parseArgs } from "node:util";
 import { glob } from "glob";
-import { loadConfig } from "./config";
+import type { Config } from "./config";
 import {
 	convertPageFilePathToRoute,
 	generateNextjsExportedHtmlFilePath,
@@ -11,20 +10,9 @@ import {
 } from "./nextjs";
 import { generateNginxRewriteRule } from "./nginx";
 
-const main = async () => {
-	const {
-		values: { config: configFilePath },
-	} = parseArgs({
-		args: process.argv.slice(2),
-		options: {
-			config: {
-				type: "string",
-			},
-		},
-	});
+export { loadConfig } from "./config";
 
-	const config = await loadConfig(configFilePath);
-
+export const generateNextjsSSGRewriteRule = async (config: Config): Promise<string> => {
 	const pagesFilePathPattern = path.join(
 		config.pagesDirPath,
 		"**/*.{js,jsx,ts,tsx}",
@@ -59,8 +47,5 @@ const main = async () => {
 		});
 	});
 
-	// eslint-disable-next-line no-console
-	console.log(rewriteRules.join("\n\n"));
+	return rewriteRules.join("\n\n")
 };
-
-main();
