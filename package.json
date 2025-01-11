@@ -18,7 +18,7 @@
 		"generate": "./bin/nextjs-ssg-rewrite-rule-gen.js",
 		"test": "jest --config jest.config.js",
 		"lint": "biome check src",
-		"format": "biome check --apply src"
+		"format": "biome check --write src"
 	},
 	"repository": {
 		"type": "git",
