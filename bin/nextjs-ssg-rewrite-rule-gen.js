@@ -2,30 +2,30 @@
 
 const { parseArgs } = require("node:util");
 const {
-  loadConfig,
-  generateNextjsSSGRewriteRule,
+	loadConfig,
+	generateNextjsSSGRewriteRule,
 } = require("../dist/index.js");
 
 const main = async () => {
-  const {
-    values: { config: configFilePath },
-  } = parseArgs({
-    args: process.argv.slice(2),
-    options: {
-      config: {
-        type: "string",
-      },
-    },
-  });
+	const {
+		values: { config: configFilePath },
+	} = parseArgs({
+		args: process.argv.slice(2),
+		options: {
+			config: {
+				type: "string",
+			},
+		},
+	});
 
-  const config = await loadConfig(configFilePath);
+	const config = await loadConfig(configFilePath);
 
-  const rule = await generateNextjsSSGRewriteRule(config);
+	const rule = await generateNextjsSSGRewriteRule(config);
 
-  console.log(rule);
+	console.log(rule);
 };
 
 main().catch((error) => {
-  console.error(error);
-  process.exit(1);
+	console.error(error);
+	process.exit(1);
 });

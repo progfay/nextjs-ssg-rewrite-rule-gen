@@ -12,7 +12,9 @@ import { generateNginxRewriteRule } from "./nginx";
 
 export { loadConfig } from "./config";
 
-export const generateNextjsSSGRewriteRule = async (config: Config): Promise<string> => {
+export const generateNextjsSSGRewriteRule = async (
+	config: Config,
+): Promise<string> => {
 	const pagesFilePathPattern = path.join(
 		config.pagesDirPath,
 		"**/*.{js,jsx,ts,tsx}",
@@ -47,5 +49,5 @@ export const generateNextjsSSGRewriteRule = async (config: Config): Promise<stri
 		});
 	});
 
-	return rewriteRules.join("\n\n")
+	return rewriteRules.join("\n\n");
 };

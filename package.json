@@ -6,19 +6,15 @@
 	"bin": {
 		"nextjs-ssg-rewrite-rule-gen": "bin/nextjs-ssg-rewrite-rule-gen.js"
 	},
-	"files": [
-		"bin",
-		"dist",
-		"package.json"
-	],
+	"files": ["bin", "dist", "package.json"],
 	"scripts": {
 		"prepare": "npm run build",
 		"prebuild": "rm -rf dist",
 		"build": "tsc -p tsconfig.json",
 		"generate": "./bin/nextjs-ssg-rewrite-rule-gen.js",
 		"test": "jest --config jest.config.js",
-		"lint": "biome check src",
-		"format": "biome check --write src"
+		"lint": "biome check .",
+		"format": "biome check --write ."
 	},
 	"repository": {
 		"type": "git",
