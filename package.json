@@ -6,7 +6,11 @@
 	"bin": {
 		"nextjs-ssg-rewrite-rule-gen": "bin/nextjs-ssg-rewrite-rule-gen.js"
 	},
-	"files": ["bin", "dist", "package.json"],
+	"files": [
+		"bin",
+		"dist",
+		"package.json"
+	],
 	"scripts": {
 		"prepare": "npm run build",
 		"prebuild": "rm -rf dist",
