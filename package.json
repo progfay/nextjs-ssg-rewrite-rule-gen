@@ -28,7 +28,7 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@biomejs/biome": "2.1.1",
-		"@swc/jest": "0.2.38",
+		"@swc/jest": "0.2.39",
 		"@types/jest": "30.0.0",
 		"jest": "30.0.4",
 		"typescript": "5.8.3"
