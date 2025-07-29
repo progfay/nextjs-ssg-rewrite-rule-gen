@@ -27,7 +27,7 @@
 	"author": "progfay",
 	"license": "MIT",
 	"devDependencies": {
-		"@biomejs/biome": "2.1.2",
+		"@biomejs/biome": "2.1.3",
 		"@swc/jest": "0.2.39",
 		"@types/jest": "30.0.0",
 		"jest": "30.0.5",
