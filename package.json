@@ -30,7 +30,7 @@
 		"@biomejs/biome": "2.2.2",
 		"@swc/jest": "0.2.39",
 		"@types/jest": "30.0.0",
-		"jest": "30.1.0",
+		"jest": "30.1.1",
 		"typescript": "5.9.2"
 	},
 	"dependencies": {
