@@ -1,5 +1,5 @@
+import { glob } from "node:fs/promises";
 import path from "node:path";
-import { glob } from "glob";
 import type { Config } from "./config";
 import {
 	convertPageFilePathToRoute,
@@ -19,7 +19,9 @@ export const generateNextjsSSGRewriteRule = async (
 		config.pagesDirPath,
 		"**/*.{js,jsx,ts,tsx}",
 	);
-	const pageFilePathList = await glob(pagesFilePathPattern);
+	const pageFilePathList = await Array.fromAsync(
+		await glob(pagesFilePathPattern),
+	);
 
 	const routes = pageFilePathList.map((pageFilePath) =>
 		convertPageFilePathToRoute(pageFilePath, config),
