@@ -99,8 +99,10 @@ export const rejectUnnecessaryRoutes = (
 export const generateNextjsPathPattern = ({
 	route,
 	basePath,
-}: { readonly route: Route; readonly basePath: string }) =>
-	`^${`${basePath}${route}`.replace(/\[[^/]+?\]/g, "[^/]+?")}/?$`;
+}: {
+	readonly route: Route;
+	readonly basePath: string;
+}) => `^${`${basePath}${route}`.replace(/\[[^/]+?\]/g, "[^/]+?")}/?$`;
 
 /**
  * @returns paths for HTML file generated with {@link https://nextjs.org/docs/pages/building-your-application/deploying/static-exports | Next.js Static Exports}
@@ -108,7 +110,10 @@ export const generateNextjsPathPattern = ({
 export const generateNextjsExportedHtmlFilePath = ({
 	route,
 	trailingSlash,
-}: { readonly route: Route; readonly trailingSlash: boolean }) => {
+}: {
+	readonly route: Route;
+	readonly trailingSlash: boolean;
+}) => {
 	if (route === "") return "/index.html";
 
 	/**
