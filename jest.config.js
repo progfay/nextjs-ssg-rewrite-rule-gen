@@ -1,7 +1,14 @@
 module.exports = {
 	testMatch: ["<rootDir>/**/*.test.ts"],
 	transform: {
-		"^.+\\.(js|jsx|ts|tsx)$": "@swc/jest",
+		"^.+\\.(js|jsx|ts|tsx)$": [
+			"@swc/jest",
+			{
+				jsc: {
+					target: "esnext",
+				},
+			},
+		],
 	},
 	transformIgnorePatterns: ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$"],
 	moduleNameMapper: {
