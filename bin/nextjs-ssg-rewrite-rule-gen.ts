@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
-const { parseArgs } = require("node:util");
-const {
-	loadConfig,
-	generateNextjsSSGRewriteRule,
-} = require("../dist/index.js");
+import { parseArgs } from "node:util";
+import { generateNextjsSSGRewriteRule, loadConfig } from "../src/index.ts";
 
 const main = async () => {
 	const {
