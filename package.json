@@ -22,7 +22,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/progfay/nextjs-ssg-rewrite-rule-gen"
+		"url": "git+https://github.com/progfay/nextjs-ssg-rewrite-rule-gen.git"
 	},
 	"author": "progfay",
 	"license": "MIT",
