@@ -2,21 +2,22 @@
 	"name": "@progfay/nextjs-ssg-rewrite-rule-gen",
 	"version": "1.2.0",
 	"description": "generate nginx rewrite rules for Next.js SSG (Pages Router)",
-	"main": "dist/index.js",
+	"type": "module",
+	"main": "src/index.ts",
 	"bin": {
-		"nextjs-ssg-rewrite-rule-gen": "bin/nextjs-ssg-rewrite-rule-gen.js"
+		"nextjs-ssg-rewrite-rule-gen": "bin/nextjs-ssg-rewrite-rule-gen.ts"
 	},
 	"files": [
 		"bin",
-		"dist",
+		"src",
 		"package.json"
 	],
 	"scripts": {
 		"prepare": "npm run build",
 		"prebuild": "rm -rf dist",
 		"build": "tsc -p tsconfig.json",
-		"generate": "./bin/nextjs-ssg-rewrite-rule-gen.js",
-		"test": "jest --config jest.config.js",
+		"generate": "./bin/nextjs-ssg-rewrite-rule-gen.ts",
+		"test": "node --test",
 		"lint": "biome check .",
 		"format": "biome check --write ."
 	},
@@ -28,9 +29,7 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@biomejs/biome": "2.3.8",
-		"@swc/jest": "0.2.39",
-		"@types/jest": "30.0.0",
-		"jest": "30.2.0",
+		"@types/node": "24.10.2",
 		"typescript": "5.9.3"
 	},
 	"engines": {
