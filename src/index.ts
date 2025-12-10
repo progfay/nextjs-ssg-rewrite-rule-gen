@@ -1,16 +1,16 @@
 import { glob } from "node:fs/promises";
 import path from "node:path";
-import type { Config } from "./config";
+import type { Config } from "./config.ts";
 import {
 	convertPageFilePathToRoute,
 	generateNextjsExportedHtmlFilePath,
 	generateNextjsPathPattern,
 	rejectUnnecessaryRoutes,
 	sortRoutesByRoutingPriorityOrder,
-} from "./nextjs";
-import { generateNginxRewriteRule } from "./nginx";
+} from "./nextjs.ts";
+import { generateNginxRewriteRule } from "./nginx.ts";
 
-export { loadConfig } from "./config";
+export { loadConfig } from "./config.ts";
 
 export const generateNextjsSSGRewriteRule = async (
 	config: Config,

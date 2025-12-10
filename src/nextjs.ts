@@ -4,7 +4,7 @@
  * and {@link https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#optional-catch-all-segments | Optional Catch-all Segments}
  */
 
-import type { Config } from "./config";
+import type { Config } from "./config.ts";
 
 declare const routeSymbol: unique symbol;
 /**

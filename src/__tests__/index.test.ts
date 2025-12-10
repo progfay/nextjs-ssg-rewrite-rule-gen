@@ -1,17 +1,17 @@
 import path from "node:path";
-import { generateNextjsSSGRewriteRule } from "../";
+import { describe, it } from "node:test";
+import { generateNextjsSSGRewriteRule } from "../index.ts";
 
-describe(generateNextjsSSGRewriteRule, () => {
-	it("generate Next.js SSG rewrite rule", async () => {
-		expect(
-			generateNextjsSSGRewriteRule({
-				pagesDirPath: path.resolve(__dirname, "pages"),
+describe("generateNextjsSSGRewriteRule", () => {
+	it("generate Next.js SSG rewrite rule", async ({ assert }) => {
+		assert.equal(
+			await generateNextjsSSGRewriteRule({
+				pagesDirPath: path.resolve(import.meta.dirname, "pages"),
 				ignoredRoutes: [],
 				nginxConfigs: [],
 				basePath: "",
 				trailingSlash: true,
 			}),
-		).resolves.toEqual(
 			`
 location ~ ^/?$ {
   rewrite ^/?$ /index.html break;
