@@ -14,7 +14,7 @@ export default defineConfig({
   },
   pack: {
     entry: ["src/index.ts"],
-    format: ["cjs"],
+    format: ["esm"],
   },
   test: {
     include: ["src/**/*.test.ts"],

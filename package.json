@@ -16,7 +16,8 @@
     "dist",
     "package.json"
   ],
-  "main": "dist/index.cjs",
+  "type": "module",
+  "main": "dist/index.mjs",
   "publishConfig": {
     "access": "public"
   },
