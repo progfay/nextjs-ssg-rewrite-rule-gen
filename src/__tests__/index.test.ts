@@ -1,18 +1,19 @@
 import path from "node:path";
+import { describe, expect, it } from "vite-plus/test";
 import { generateNextjsSSGRewriteRule } from "../";
 
 describe(generateNextjsSSGRewriteRule, () => {
-	it("generate Next.js SSG rewrite rule", async () => {
-		expect(
-			generateNextjsSSGRewriteRule({
-				pagesDirPath: path.resolve(__dirname, "pages"),
-				ignoredRoutes: [],
-				nginxConfigs: [],
-				basePath: "",
-				trailingSlash: true,
-			}),
-		).resolves.toEqual(
-			`
+  it("generate Next.js SSG rewrite rule", async () => {
+    await expect(
+      generateNextjsSSGRewriteRule({
+        pagesDirPath: path.resolve(__dirname, "pages"),
+        ignoredRoutes: [],
+        nginxConfigs: [],
+        basePath: "",
+        trailingSlash: true,
+      }),
+    ).resolves.toEqual(
+      `
 location ~ ^/?$ {
   rewrite ^/?$ /index.html break;
 }
@@ -72,6 +73,6 @@ location ~ ^/posts/[^/]+?/?$ {
 location ~ ^/[^/]+?/?$ {
   rewrite ^/[^/]+?/?$ /[root-slug]/index.html break;
 }`.trim(),
-		);
-	});
+    );
+  });
 });

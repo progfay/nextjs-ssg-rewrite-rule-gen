@@ -13,7 +13,7 @@ declare const routeSymbol: unique symbol;
  * like a {@link https://github.com/vercel/next.js/blob/127c5bbf80d44e256533db028d7a595a1c3defe0/docs/03-pages/02-api-reference/02-functions/use-router.mdx#L39 | `NextRouter["pathname"]`}
  */
 export type Route = string & {
-	__route: typeof routeSymbol;
+  __route: typeof routeSymbol;
 };
 
 /**
@@ -38,86 +38,78 @@ const isApiRoutePath = (route: Route) => route.startsWith(API_ROUTE_PREFIX);
  * @returns `Route` array which is sorted by priority (descending)
  */
 export const sortRoutesByRoutingPriorityOrder = (routes: Route[]): Route[] =>
-	[...routes].sort((file1: Route, file2: Route) => {
-		const minLength = Math.min(file1.length, file2.length);
-		for (let i = 0; i < minLength; i += 1) {
-			if (file1[i] === file2[i]) continue; // eslint-disable-line no-continue
+  [...routes].sort((file1: Route, file2: Route) => {
+    const minLength = Math.min(file1.length, file2.length);
+    for (let i = 0; i < minLength; i += 1) {
+      if (file1[i] === file2[i]) continue; // eslint-disable-line no-continue
 
-			// without Dynamic Routes has a higher priority than with Dynamic Routes
-			if (file1[i] === "[") return 1;
-			if (file2[i] === "[") return -1;
+      // without Dynamic Routes has a higher priority than with Dynamic Routes
+      if (file1[i] === "[") return 1;
+      if (file2[i] === "[") return -1;
 
-			// ref. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
-			return file1[i].localeCompare(file2[i]);
-		}
+      // ref. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+      return file1[i].localeCompare(file2[i]);
+    }
 
-		// the shorter the path, the higher the priority.
-		return file1.length - file2.length;
-	});
+    // the shorter the path, the higher the priority.
+    return file1.length - file2.length;
+  });
 
 const trimPrefix = (target: string, prefix: string) =>
-	target.startsWith(prefix) ? target.slice(prefix.length) : target;
+  target.startsWith(prefix) ? target.slice(prefix.length) : target;
 
 /**
  * @param pageFilePath path for file under the `pages` directory
  * @returns converted argument for {@link Route}
  */
 export const convertPageFilePathToRoute = (
-	absolutePageFilePath: string,
-	{ pagesDirPath }: Pick<Config, "pagesDirPath">,
+  absolutePageFilePath: string,
+  { pagesDirPath }: Pick<Config, "pagesDirPath">,
 ): Route => {
-	const pageFilePath = trimPrefix(absolutePageFilePath, pagesDirPath);
-	const route = pageFilePath
-		.replace(/\.(js|jsx|ts|tsx)$/, "")
-		.replace(/\/index$/, "") as Route;
-	return route;
+  const pageFilePath = trimPrefix(absolutePageFilePath, pagesDirPath);
+  const route = pageFilePath.replace(/\.(js|jsx|ts|tsx)$/, "").replace(/\/index$/, "") as Route;
+  return route;
 };
 
-const COMMON_IGNORED_ROUTES = [
-	"/_app",
-	"/_document",
-	"/_error",
-	"/404",
-	"/500",
-];
+const COMMON_IGNORED_ROUTES = ["/_app", "/_document", "/_error", "/404", "/500"];
 
 /**
  * @description reject API Routes and routes which should be ignored.
  */
 export const rejectUnnecessaryRoutes = (
-	routes: Route[],
-	{ ignoredRoutes }: Pick<Config, "ignoredRoutes">,
+  routes: Route[],
+  { ignoredRoutes }: Pick<Config, "ignoredRoutes">,
 ): Route[] =>
-	routes
-		.filter((route) => !isApiRoutePath(route))
-		.filter((route) => !COMMON_IGNORED_ROUTES.includes(route))
-		.filter((route) => !ignoredRoutes.includes(route));
+  routes
+    .filter((route) => !isApiRoutePath(route))
+    .filter((route) => !COMMON_IGNORED_ROUTES.includes(route))
+    .filter((route) => !ignoredRoutes.includes(route));
 
 /**
  * @description generate regular expression string which matches to `pathname`
  */
 export const generateNextjsPathPattern = ({
-	route,
-	basePath,
+  route,
+  basePath,
 }: {
-	readonly route: Route;
-	readonly basePath: string;
+  readonly route: Route;
+  readonly basePath: string;
 }) => `^${`${basePath}${route}`.replace(/\[[^/]+?\]/g, "[^/]+?")}/?$`;
 
 /**
  * @returns paths for HTML file generated with {@link https://nextjs.org/docs/pages/building-your-application/deploying/static-exports | Next.js Static Exports}
  */
 export const generateNextjsExportedHtmlFilePath = ({
-	route,
-	trailingSlash,
+  route,
+  trailingSlash,
 }: {
-	readonly route: Route;
-	readonly trailingSlash: boolean;
+  readonly route: Route;
+  readonly trailingSlash: boolean;
 }) => {
-	if (route === "") return "/index.html";
+  if (route === "") return "/index.html";
 
-	/**
-	 * The path depends on {@link https://nextjs.org/docs/app/api-reference/next-config-js/trailingSlash `NextConfig["trailingSlash"]` option}.
-	 */
-	return trailingSlash ? `${route}/index.html` : `${route}.html`;
+  /**
+   * The path depends on {@link https://nextjs.org/docs/app/api-reference/next-config-js/trailingSlash `NextConfig["trailingSlash"]` option}.
+   */
+  return trailingSlash ? `${route}/index.html` : `${route}.html`;
 };

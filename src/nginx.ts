@@ -3,20 +3,18 @@
  * for page files (`.html` files)
  */
 export const generateNginxRewriteRule = ({
-	pattern,
-	filePath,
-	additionalDirectives,
+  pattern,
+  filePath,
+  additionalDirectives,
 }: {
-	readonly pattern: string;
-	readonly filePath: string;
-	readonly additionalDirectives: string[];
+  readonly pattern: string;
+  readonly filePath: string;
+  readonly additionalDirectives: string[];
 }) =>
-	`
+  `
 location ~ ${pattern} {${
-		additionalDirectives.length > 0
-			? `\n  ${additionalDirectives.join("\n  ")}`
-			: ""
-	}
+    additionalDirectives.length > 0 ? `\n  ${additionalDirectives.join("\n  ")}` : ""
+  }
   rewrite ${pattern} ${filePath} break;
 }
 `.trim();

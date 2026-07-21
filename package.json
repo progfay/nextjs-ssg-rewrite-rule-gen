@@ -1,42 +1,42 @@
 {
-	"name": "@progfay/nextjs-ssg-rewrite-rule-gen",
-	"version": "1.2.0",
-	"description": "generate nginx rewrite rules for Next.js SSG (Pages Router)",
-	"main": "dist/index.js",
-	"bin": {
-		"nextjs-ssg-rewrite-rule-gen": "bin/nextjs-ssg-rewrite-rule-gen.js"
-	},
-	"files": [
-		"bin",
-		"dist",
-		"package.json"
-	],
-	"scripts": {
-		"prepare": "npm run build",
-		"prebuild": "rm -rf dist",
-		"build": "tsc -p tsconfig.json",
-		"generate": "./bin/nextjs-ssg-rewrite-rule-gen.js",
-		"test": "jest --config jest.config.js",
-		"lint": "biome check .",
-		"format": "biome check --write ."
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/progfay/nextjs-ssg-rewrite-rule-gen.git"
-	},
-	"author": "progfay",
-	"license": "MIT",
-	"devDependencies": {
-		"@biomejs/biome": "2.5.2",
-		"@swc/jest": "0.2.39",
-		"@types/jest": "30.0.0",
-		"jest": "30.4.2",
-		"typescript": "6.0.3"
-	},
-	"engines": {
-		"node": ">=24.0.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@progfay/nextjs-ssg-rewrite-rule-gen",
+  "version": "1.2.0",
+  "description": "generate nginx rewrite rules for Next.js SSG (Pages Router)",
+  "license": "MIT",
+  "author": "progfay",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/progfay/nextjs-ssg-rewrite-rule-gen.git"
+  },
+  "bin": {
+    "nextjs-ssg-rewrite-rule-gen": "bin/nextjs-ssg-rewrite-rule-gen.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "package.json"
+  ],
+  "main": "dist/index.cjs",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepare": "vp config && npm run build",
+    "build": "vp pack",
+    "generate": "./bin/nextjs-ssg-rewrite-rule-gen.js",
+    "test": "vp test run",
+    "lint": "vp check",
+    "format": "vp check --fix"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "vite-plus": "latest"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@latest"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "npm@12.0.1"
 }
