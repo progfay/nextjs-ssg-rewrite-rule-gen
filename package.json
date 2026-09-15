@@ -30,7 +30,7 @@
     "format": "vp check --fix"
   },
   "devDependencies": {
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.5",
     "vite-plus": "latest"
   },
   "overrides": {
